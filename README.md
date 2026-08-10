@@ -1,5 +1,25 @@
 # Hyprspace
 
+**This is the ShedOS fork**, of [Petar546/Hyprspace](https://github.com/Petar546/Hyprspace),
+itself a fork of [KZDKM/Hyprspace](https://github.com/KZDKM/Hyprspace). Every
+ShedOS change is an ordinary commit on top, so `git log` is the list of what we
+carry and why.
+
+`packaging/` holds the package build that ships the plugin on
+[ShedOS](https://shedos.org). It builds this repository at the commit its
+PKGBUILD pins, so the source and the recipe move together.
+
+**Build-out in progress.** Production lives at
+[Theshedman/shedos](https://github.com/Theshedman/shedos) until the multi-repo
+cutover completes; this repo publishes to a staging channel.
+
+[shed-os/shedos-ci](https://github.com/shed-os/shedos-ci) builds and tests this
+repo and requests publication;
+[shed-os/shedos-release](https://github.com/shed-os/shedos-release) signs and
+publishes.
+
+The rest of this page is upstream's documentation for the plugin.
+
 A plugin for Hyprland that implements a workspace overview feature similar to that of KDE Plasma, GNOME and macOS, aimed to provide a efficient way of workspace and window management.
 
 > [!NOTE]
