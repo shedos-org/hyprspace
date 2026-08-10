@@ -43,3 +43,16 @@ meson-out
 meson-info
 meson-logs
 meson-private
+
+# makepkg byproducts from the package build. Scoped to packaging/ because the
+# plugin's own src/ at the root is tracked source, and Hyprspace/ is the clone
+# cache makepkg keeps beside the PKGBUILD for the git source.
+packaging/pkg/
+packaging/src/
+packaging/Hyprspace/
+packaging/*.pkg.tar.zst
+packaging/*.pkg.tar.zst.sig
+packaging/*.log
+
+# where the shared pipeline collects what it built
+dist/
