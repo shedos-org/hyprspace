@@ -51,7 +51,9 @@ makedepends=(
 
 _commit='2728b7000bc6da2dbcb4e83d4708db3210d2ed4f'
 
-source=("git+https://github.com/Theshedman/Hyprspace.git#commit=$_commit")
+# Named so the checkout keeps the directory name the build reaches for: the
+# repo is spelled hyprspace and makepkg would otherwise follow the URL.
+source=("Hyprspace::git+https://github.com/shed-os/hyprspace.git#commit=$_commit")
 sha256sums=('SKIP')
 
 build() {
