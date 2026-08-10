@@ -1,0 +1,65 @@
+# Maintainer: ShedOS <https://github.com/Theshedman/shedos>
+#
+# Workspace overview plugin for Hyprland — Mission-Control-style
+# horizontal workspace strip at the top of the screen, with live
+# window previews and drag-to-move-between-workspaces support.
+#
+# Source: Theshedman/Hyprspace — our fork of Petar546/Hyprspace, in turn
+# a fork of KZdkm/Hyprspace. Each ShedOS fix is a separate commit on the
+# fork; see `git log` on the fork for the full story. Fixes carried at
+# time of writing:
+#   - wire reloadConfig() to the config.reloaded event so user-set
+#     plugin:overview:* keys actually apply
+#   - rewrite renderWindowStub to pin m_realPosition/m_realSize to the
+#     thumbnail rect directly (ElementRenderer.cpp:318 culled the
+#     renderModif-relocated pixels because damage stayed at the
+#     un-modif'd box)
+#   - expose hl.plugin.hyprspace.{toggle,open,close}() Lua functions —
+#     the Lua config manager can't invoke legacy plugin dispatchers,
+#     so the hyprland.lua binds and gestures call these instead
+
+pkgname=shedos-hyprland-plugin-hyprspace
+pkgver=2026.07.03
+pkgrel=1
+pkgdesc='Workspace-overview plugin for Hyprland (Hyprspace), forked for ShedOS'
+arch=('x86_64')
+url='https://github.com/Theshedman/Hyprspace'
+license=('BSD-3-Clause')
+
+depends=(
+    # Never pin: an exact pin blocks the whole system update whenever
+    # the repos move hyprland first. Worst case now is the overview
+    # sitting out until the plugin is rebuilt.
+    'hyprland'
+    'gcc-libs'
+    'glibc'
+    'pixman'
+    'libdrm'
+    'pango'
+    'libinput'
+    'systemd-libs'
+    'wayland'
+    'libxkbcommon'
+)
+
+makedepends=(
+    'gcc'
+    'make'
+    'pkgconf'
+    'git'
+)
+
+_commit='2728b7000bc6da2dbcb4e83d4708db3210d2ed4f'
+
+source=("git+https://github.com/Theshedman/Hyprspace.git#commit=$_commit")
+sha256sums=('SKIP')
+
+build() {
+    cd "$srcdir/Hyprspace"
+    make all
+}
+
+package() {
+    install -Dm644 "$srcdir/Hyprspace/Hyprspace.so" \
+        "$pkgdir/usr/lib/hyprland/Hyprspace.so"
+}
